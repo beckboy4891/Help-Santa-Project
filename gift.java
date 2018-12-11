@@ -1,27 +1,15 @@
 import java.util.*;
-
+import java.io.*;
 public class gift
 {
-	File file = new File ("gifts.txt");
-	sc = new Scanner(new File("gifts"));
-	while (sc.hasNextLine()) //Not Finished
+	public static void main (String[]args) throws FileNotFoundException
 	{
+		//Reads in file - made by Andrew
+		File file = new File ("gifts.txt");
+		Scanner sc = new Scanner (file);
+		while (sc.hasNextLine())
+		{
+			System.out.println(sc.nextLine());
+		}
 	}
-
-	String toyName;
-	int ageMin = 0;
-	int ageMax = 0;
-	double cost = 0;
-	int daysTaken = 0;
-
-	public void gift (int aI,int aM, double c, int dT)
-	{
-		ageMin = aI;
-		ageMax = aM;
-		cost = c;
-		daysTaken = dT;
-	}
-
-
 }
-
