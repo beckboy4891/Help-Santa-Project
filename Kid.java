@@ -23,4 +23,14 @@ public class Kid
 	{
 		return name;
 	}
+	
+	public void printInfo()
+	{
+		System.out.println("Kid name: " + name);
+		if(nice)
+			System.out.println("Nice");
+		else
+			System.out.println("Naughty");
+		System.out.println("Age: " + age);
+	}
 }
