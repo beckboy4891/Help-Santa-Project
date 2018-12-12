@@ -17,29 +17,29 @@ public class SantaProj
 
         while (scanner.hasNext())
         {
-            if(incriment ==  1){   //inputs name of the current child and adds one to the counter//
-				name = scanner.next();
+         	if(incriment ==  1){   //inputs name of the current child and adds one to the counter//
+			name = scanner.next();
+			incriment ++;
+		}
+		if(incriment == 2){
+			if(scanner.next().equals(" nice")){ //determines wether "nice" is true or false and adds one to the counter//
+				NorN = true;
 				incriment ++;
 			}
-			if(incriment == 2){
-				if(scanner.next().equals(" nice")){ //determines wether "nice" is true or false and adds one to the counter//
-					NorN = true;
-					incriment ++;
-				}
-				else{
-					NorN = false;
-					incriment ++;
-				}
+			else{
+				NorN = false;
+				incriment ++;
 			}
-			else{				//gets the age of the child and converts it from a string to a integer, resets the counter//
-				age = Integer.parseInt(scanner.next());
-				incriment = 0;
-			}
-			Kid Kiddo = new Kid(name, NorN, age);	//creates a new child with the provided information//
-			Kids.add(Kiddo);						//Adds the new "kid" to the list//
+		}
+		else{				//gets the age of the child and converts it from a string to a integer, resets the counter//
+			age = Integer.parseInt(scanner.next());
+			incriment = 0;
+		}
+		Kid Kiddo = new Kid(name, NorN, age);	//creates a new child with the provided information//
+		Kids.add(Kiddo);						//Adds the new "kid" to the list//
         }
         scanner.close();
-		for(int i = 0; i < Kids.size(); i ++){ //Loops through and prints out each childs information//
+		for(int i = 0; i < Kids.size(); i ++){ //Loops through and prints out each child's information//
 			Kids.get(i).printInfo();
 		}
     }
