@@ -29,7 +29,7 @@ public class Remove
 		int giftMin = g.getMin();
 		int giftMax = g.getMax();
 
-		if(kidAge >= giftMin && kidAge <= giftMax)	`//kid age must be within age range of gift//
+		if(kidAge >= giftMin && kidAge <= giftMax)	//kid age must be within age range of gift//
 			return true;	//gift matches//
 
 
