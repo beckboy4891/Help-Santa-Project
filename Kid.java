@@ -5,7 +5,7 @@ public class Kid
 	boolean nice;
 	int age;
 
-	public void Kid(String s, boolean n, int a)	//initialize instance of "Kid", set all variables//
+	public Kid(String s, boolean n, int a)	//initialize instance of "Kid", set all variables//
 	{
 		name = s;
 		nice = n;
