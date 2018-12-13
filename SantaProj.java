@@ -42,5 +42,54 @@ public class SantaProj
 		for(int i = 0; i < Kids.size(); i ++){ //Loops through and prints out each child's information//
 			Kids.get(i).printInfo();
 		}
+	    
+	    		/*Gift section"*/
+		int increment = 0;//keeps track of gift scanner
+		int ageMN = 0;
+		int ageMX = 0;
+		double pri = 0.0;
+		int build = 0;
+		String user = "null";
+		String gift ="null";
+		while (giftScanner.hasNext())
+		{
+			if(increment == 0)
+				{
+				gift = giftScanner.nextLine();
+				increment++;
+				}
+			if(increment == 1)
+			{
+				user = giftScanner.nextLine();
+				
+				increment++;
+
+			}
+			if(increment == 2)
+			{
+				gift = giftScanner.nextLine();
+				increment++;
+
+			}
+			if(increment == 3)
+			{
+				gift = giftScanner.nextLine();
+				increment++;
+
+			}
+			if(increment == 4)
+			{
+				gift = giftScanner.nextLine();
+				increment++;
+
+			}
+			else{
+				increment = 0;
+			}
+		}
+}
+
+	}
+}
     }
 }
