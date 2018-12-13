@@ -42,8 +42,9 @@ public class SantaProj
 		for(int i = 0; i < Kids.size(); i ++){ //Loops through and prints out each child's information//
 			Kids.get(i).printInfo();
 		}
-	    
+
 	    		/*Gift section"*/
+	    	Scanner giftScanner = new Scanner (new File("gifts.txt"));
 		int increment = 0;//keeps track of gift scanner
 		int ageMN = 0;
 		int ageMX = 0;
@@ -61,7 +62,7 @@ public class SantaProj
 			if(increment == 1)
 			{
 				user = giftScanner.nextLine();
-				
+
 				increment++;
 
 			}
@@ -90,6 +91,6 @@ public class SantaProj
 }
 
 	}
-}
-    }
-}
+
+
+
