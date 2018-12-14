@@ -6,12 +6,12 @@ public class test
 {
     public static void main(String[] args) throws FileNotFoundException
     {
-	String[] tokens;
-	ArrayList<Kid> Kids = new ArrayList<>();
-	String current = "null";
-	String name = "null";
-	int age = 0;
-	boolean NorN = false;
+		String[] tokens;
+		ArrayList<Kid> Kids = new ArrayList<>();
+		String current = "null";
+		String name = "null";
+		int age = 0;
+		boolean NorN = false;
         String line;
         String string;
         int increment = 0;
@@ -50,8 +50,13 @@ public class test
 				age = Integer.parseInt(current);
 				increment = 0;
 			}
+			Kid Kiddo = new Kid(name, NorN, age);
+			Kids.add(Kiddo);
 		}
-		Kid Kiddo = new Kid(name, NorN, age);
-		Kids.add(Kiddo);
+
+		for(int x = 0; x < Kids.size(); x ++){
+			Kid child = Kids.get(x);
+			child.printInfo();
+		}
 	}
 }
