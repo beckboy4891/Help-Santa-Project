@@ -58,5 +58,18 @@ public class test
 			Kid child = Kids.get(x);
 			child.printInfo();
 		}
+	   	 /*Gift section*/
+		Scanner scan = new Scanner(new File("gifts.txt"));
+		ArrayList<Gift> gift = new ArrayList<>();
+
+		while (scan.hasLine())
+		{
+			String giftName = scan.nextLine();
+			int minAge = scan.nextInt();
+			int maxAge = scan.nextInt();
+			int days = scan.nextInt();
+			double price = nextPrice();
+			gift.add(new Gift(minAge,maxAge,days,price));
+		}
 	}
 }
