@@ -25,7 +25,6 @@ public class SantaProj
 
             //handle the tokens
             for (String str: tokens){
-                 System.out.println (str);
                  info.add(str);
 			 }
         }
@@ -49,11 +48,10 @@ public class SantaProj
 			else if (increment == 2){
 				age = Integer.parseInt(current);
 				increment = 0;
+				Kid Kiddo = new Kid(name, NorN, age);
+				Kids.add(Kiddo);
 			}
-			Kid Kiddo = new Kid(name, NorN, age);
-			Kids.add(Kiddo);
 		}
-
 		for(int x = 0; x < Kids.size(); x ++){
 			Kid child = Kids.get(x);
 			child.printInfo();
@@ -65,11 +63,18 @@ public class SantaProj
 		while (scan.hasNext())
 		{
 			String giftName = scan.nextLine();
-			int minAge = scan.nextInt();
-			int maxAge = scan.nextInt();
-			int days = scan.nextInt();
-			double price = scan.nextDouble();
+			int minAge = Integer.parseInt(scan.nextLine());
+			int maxAge = Integer.parseInt(scan.nextLine());
+			double price = Double.parseDouble(scan.nextLine());
+			int days = Integer.parseInt(scan.nextLine());
 			gift.add(new Gift(giftName,minAge,maxAge,days,price));
+		}
+		for(Gift g : gift)
+		{
+			System.out.println(g.getName());
+			System.out.println(g.getMin());
+			System.out.println(g.getMax());
+			System.out.println(g.getPrice());
 		}
 	}
 }
