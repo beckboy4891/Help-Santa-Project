@@ -35,7 +35,7 @@ public class AssignGifts
 		{
 			for(int y = 0; y < kids.size() && money >= 4.99; y++)
 			{
-				(kids.get(y)).chooseGift(gifts, kids.get(y), money);
+				(kids.get(y)).chooseGift(gift, kids.get(y), money);
 
 				tempKid = kids.get(y);
 
