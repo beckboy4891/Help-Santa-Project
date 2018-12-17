@@ -6,6 +6,11 @@ public class Gift
 	int timeToMake = 0;
 	double price = 0.0;
 
+	public Gift()
+	{
+		name = "";
+	}
+
 	public Gift(String s, int mi, int ma, int t, double p)//initialize instance of "Kid", set all variables//
 	{
 		name = s;
@@ -15,12 +20,12 @@ public class Gift
 		price = p;
 	}
 
-	public int getMinAge()//return the minimum age for the gift//
+	public int getMin()//return the minimum age for the gift//
 	{
 		return minAge;
 	}
 
-	public int getMaxAge()//return the maximum age for the gift//
+	public int getMax()//return the maximum age for the gift//
 	{
 		return maxAge;
 	}
