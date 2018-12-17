@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
-public class test
+public class SantaProj
 {
     public static void main(String[] args) throws FileNotFoundException
     {
@@ -62,14 +62,14 @@ public class test
 		Scanner scan = new Scanner(new File("gifts.txt"));
 		ArrayList<Gift> gift = new ArrayList<>();
 
-		while (scan.hasLine())
+		while (scan.hasNext())
 		{
 			String giftName = scan.nextLine();
 			int minAge = scan.nextInt();
 			int maxAge = scan.nextInt();
 			int days = scan.nextInt();
-			double price = nextPrice();
-			gift.add(new Gift(minAge,maxAge,days,price));
+			double price = scan.nextDouble();
+			gift.add(new Gift(giftName,minAge,maxAge,days,price));
 		}
 	}
 }
