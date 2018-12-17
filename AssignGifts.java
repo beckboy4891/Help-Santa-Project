@@ -37,7 +37,9 @@ public class AssignGifts
 			{
 				(kids.get(y)).chooseGift(gifts, kids.get(y), money);
 
+				tempKid = kids.get(y);
 
+				money -= (tempKid.getGifts()).get(tempKid.getGifts().size() - 1).getPrice();
 			}
 		}
 	}
@@ -46,7 +48,7 @@ public class AssignGifts
 	{
 		boolean matches = false;
 		double giftCost = 0.0;
-		double MoneyPerKid = kid.getCostMax();
+		double moneyPerKid = kid.getCostMax();
 		ArrayList<Gift> potentialGifts = new ArrayList<Gift>();
 		ArrayList<Gift> giftsKidGets = kid.getGifts();
 		Gift giftChosen;
@@ -57,7 +59,7 @@ public class AssignGifts
 
 			matches = giftMatches(kid, g);
 
-			if(gi > moneyLeft)
+			if(giftCost > moneyLeft)
 				matches = false;
 
 			for(Gift gi : giftsKidGets)
@@ -66,14 +68,14 @@ public class AssignGifts
 					matches = false;
 			}
 
-			if(matches = true && (kid.getCost() + giftCost) < moneyPerKid)
+			if(matches && ((kid.getCost() + giftCost) <= moneyPerKid))
 			{
 				potentialGifts.add(g);
 			}
 		}
 
 		int size = potentialGifts.size();
-		int digit = Math.random() * size;
+		int digit = (int) (Math.random() * size);
 
 		if(size > 0)
 		{
