@@ -12,11 +12,23 @@ public class SantaProj
 		String name = "null";
 		int age = 0;
 		boolean NorN = false;
+		double money = 10000.00;
+		double kidAmt = 0.0;
+		Kid tempKid = new Kid();
+		Gift tempGift = new Gift();
         String line;
         String string;
         int increment = 0;
+        int amtDays = 10;
         ArrayList<String> info = new ArrayList<>();
         Scanner scanner = new Scanner(new File("kids.txt"));
+        Scanner reader = new Scanner(System.in);
+        System.out.println("How many days do you have to build?");
+        amtDays = reader.nextInt();
+        System.out.println("How much money do you have to spend?");
+        money = reader.nextDouble();
+
+
         while (scanner.hasNext())
         {
             //tokenize the last line read from the file
@@ -54,7 +66,6 @@ public class SantaProj
 		}
 		for(int x = 0; x < Kids.size(); x ++){
 			Kid child = Kids.get(x);
-			child.printInfo();
 		}
 	   	 /*Gift section*/
 		Scanner scan = new Scanner(new File("gifts.txt"));
@@ -67,14 +78,109 @@ public class SantaProj
 			int maxAge = Integer.parseInt(scan.nextLine());
 			double price = Double.parseDouble(scan.nextLine());
 			int days = Integer.parseInt(scan.nextLine());
-			gift.add(new Gift(giftName,minAge,maxAge,days,price));
+
+			if(days <= amtDays)
+			{
+				gift.add(new Gift(giftName,minAge,maxAge,days,price));
+			}
 		}
-		for(Gift g : gift)
+
+
+		for(Kid k : Kids)
 		{
-			System.out.println(g.getName());
-			System.out.println(g.getMin());
-			System.out.println(g.getMax());
-			System.out.println(g.getPrice());
+			if(k.isNice())
+				kidAmt++;
+			else
+				kidAmt += .5;
 		}
+
+		double moneyPerKid = money / kidAmt;
+		moneyPerKid *= 1.2;
+
+		for(int x = 0; x < Kids.size(); x++)
+		{
+			(Kids.get(x)).setCostMax(moneyPerKid);
+		}
+
+		//take in kids
+
+		while(money >= 4.99)
+		{
+			for(int y = 0; y < Kids.size() && money >= 4.99; y++)
+			{
+				money -= chooseGift(gift, Kids.get(y), money);
+
+				tempKid = Kids.get(y);
+			}
+		}
+
+		for(Kid k : Kids)
+		{
+			k.printInfo();
+
+			for(Gift g : k.getGifts())
+			{
+				g.printInfo();
+			}
+		}
+
+		System.out.println("\n" + money + " dollars remaining.");
 	}
+	public static double chooseGift(ArrayList<Gift> gifts, Kid kid, double moneyLeft)
+	{
+		boolean matches = false;
+		double giftCost = 0.0;
+		double moneyPerKid = kid.getCostMax();
+		ArrayList<Gift> potentialGifts = new ArrayList<>();
+		ArrayList<Gift> giftsKidGets = kid.getGifts();
+		Gift giftChosen;
+
+		for(Gift g : gifts)
+		{
+			giftCost = g.getPrice();
+
+			matches = giftMatches(kid, g);
+
+			if(giftCost > moneyLeft)
+				matches = false;
+
+			for(Gift gi : giftsKidGets)
+			{
+				if(g.equals(gi))
+					matches = false;
+			}
+
+			if(matches && ((kid.getCost() + giftCost) <= moneyPerKid))
+			{
+				potentialGifts.add(g);
+			}
+		}
+
+		int size = potentialGifts.size();
+		int digit = (int) (Math.random() * size);
+
+		if(size > 0)
+		{
+			kid.addGift(potentialGifts.get(digit));
+
+			return potentialGifts.get(digit).getPrice();
+		}
+
+		return 0.0;
+	}
+	public static boolean giftMatches(Kid k, Gift g)	//check if the gift and the kid are age compatible//
+	{
+		int kidAge = k.getAge();
+		int giftMin = g.getMin();
+		int giftMax = g.getMax();
+
+		if(kidAge >= giftMin && kidAge <= giftMax)	//kid age must be within age range of gift//
+			return true;	//gift matches//
+
+
+		return false;	//gift does not match//
+	}
+
+
 }
+
