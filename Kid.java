@@ -51,6 +51,7 @@ public class Kid
 		else
 			System.out.println("Naughty");
 		System.out.println("Age: " + age);
+		System.out.println("Cost so far: " + costSoFar);
 	}
 	public ArrayList<Gift> getGifts()
 	{
@@ -59,6 +60,8 @@ public class Kid
 	public void addGift(Gift g)
 	{
 		gifts.add(g);
+
+		addCost(g.getPrice());
 	}
 	public void setCostMax(double c)
 	{
