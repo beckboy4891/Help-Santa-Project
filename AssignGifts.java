@@ -91,16 +91,36 @@ public class AssignGifts
 		return kid;
 	}
 
-	public boolean giftMatches(Kid k, Gift g)	//check if the gift and the kid are age compatible//
+	public static boolean giftMatches(Kid k, Gift g, double m)	//check if the gift and the kid are age compatible//
 	{
 		int kidAge = k.getAge();
 		int giftMin = g.getMin();
 		int giftMax = g.getMax();
+		ArrayList<Gift> giftsKidGets = k.getGifts();
+		boolean matches = true;
+		double giftCost = g.getPrice();
+		double moneyPerKid = k.getCostMax();
 
-		if(kidAge >= giftMin && kidAge <= giftMax)	//kid age must be within age range of gift//
-			return true;	//gift matches//
+		giftCost = g.getPrice();
+
+		if(giftCost > m)
+			matches = false;
+
+		for(Gift gi : giftsKidGets)
+		{
+			if(g.equals(gi))
+				matches = false;
+		}
+
+		if(!((k.getCost() + giftCost) <= moneyPerKid))
+		{
+			matches = false;
+		}
+
+		if(kidAge < giftMin || kidAge > giftMax)	//kid age must be within age range of gift//
+			matches = false;
 
 
-		return false;	//gift does not match//
+		return matches;
 	}
 }
