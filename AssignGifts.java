@@ -12,6 +12,9 @@ public class AssignGifts
 		double kidAmt = 0.0;
 		Kid tempKid = new Kid();
 		Gift tempGift = new Gift();
+		
+		double multiplier = 1.0 + 50 / money;
+		
 		//sets amount for kids depending on if naughty or nice
 		for(Kid k : kids)
 		{
@@ -32,18 +35,31 @@ public class AssignGifts
 		//take in kids
 		
 		//4.99 = cheapest present
-		while(money >= 4.99)
+		while(hasGift(gift, Kids, money))
 		{
-			//chooses present for the child
-			for(int y = 0; y < kids.size() && money >= 4.99; y++)
+			for(int y = 0; y < Kids.size() && hasGift(gift, Kids, money), y++)
 			{
-				(kids.get(y)).chooseGift(gift, kids.get(y), money);
+				money -= chooseGift(gift, Kids.get(y), money);
 
-				tempKid = kids.get(y);
-
-				money -= (tempKid.getGifts()).get(tempKid.getGifts().size() - 1).getPrice();
+				tempKid = Kids.get(y);
 			}
 		}
+	}
+	
+	public static boolean hasGift(ArrayList<Gift> gifts, ArrayList<Kid> kids, double moneyLeft)
+	{
+		for(Gift g : gifts)
+		{
+			for(Kid k : kids)
+			{
+				if(giftMatches(k, g, moneyLeft))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public Kid chooseGift(ArrayList<Gift> gifts, Kid kid, double moneyLeft)
@@ -58,20 +74,7 @@ public class AssignGifts
 		//adds gift to childs list and removes money from their set amount that they have
 		for(Gift g : gifts)
 		{
-			giftCost = g.getPrice();
-
-			matches = giftMatches(kid, g);
-
-			if(giftCost > moneyLeft)
-				matches = false;
-
-			for(Gift gi : giftsKidGets)
-			{
-				if(g.equals(gi))
-					matches = false;
-			}
-
-			if(matches && ((kid.getCost() + giftCost) <= moneyPerKid))
+			if(giftMatches(kid, g, moneyLeft))
 			{
 				potentialGifts.add(g);
 			}
