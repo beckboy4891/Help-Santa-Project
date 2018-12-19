@@ -44,4 +44,9 @@ public class Gift
 	{
 		return price;
 	}
+
+	public void printInfo()
+	{
+		System.out.println(name + "\n" + minAge + "\n" + maxAge + "\n" + timeToMake + "\n" + price);
+	}
 }
