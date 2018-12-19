@@ -91,7 +91,7 @@ public class SantaProj
 	   	 /*Gift section*/
 		Scanner scan = new Scanner(new File("gifts.txt"));
 		ArrayList<Gift> gift = new ArrayList<>();
-
+	    	//Reads in file and assigns each line to the correct variable type
 		while (scan.hasNext())
 		{
 			String giftName = scan.nextLine();
