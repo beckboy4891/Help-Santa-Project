@@ -67,10 +67,12 @@ public class SantaProj
 		for(int x = 0; x < Kids.size(); x ++){
 			Kid child = Kids.get(x);
 		}
-	   	 /*Gift section*/
+	   	 /*Gift section by Miguel, Emily and Andrew*/
+	    
+	    //reads in the gift file
 		Scanner scan = new Scanner(new File("gifts.txt"));
 		ArrayList<Gift> gift = new ArrayList<>();
-
+		//
 		while (scan.hasNext())
 		{
 			String giftName = scan.nextLine();
@@ -180,4 +182,7 @@ public class SantaProj
 
 		return false;	//gift does not match//
 	}
+
+
 }
+
