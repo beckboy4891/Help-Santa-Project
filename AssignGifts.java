@@ -12,7 +12,7 @@ public class AssignGifts
 		double kidAmt = 0.0;
 		Kid tempKid = new Kid();
 		Gift tempGift = new Gift();
-
+		//sets amount for kids depending on if naughty or nice
 		for(Kid k : kids)
 		{
 			if(k.isNice())
@@ -20,19 +20,21 @@ public class AssignGifts
 			else
 				kidAmt += .5;
 		}
-
+		//divides money equally per kid 
 		double moneyPerKid = money / kidAmt;
 		moneyPerKid *= 1.1;
-
+		//sets the max amount availble 
 		for(int x = 0; x < kids.size(); x++)
 		{
 			(kids.get(x)).setCostMax(moneyPerKid);
 		}
 
 		//take in kids
-
+		
+		//4.99 = cheapest present
 		while(money >= 4.99)
 		{
+			//chooses present for the child
 			for(int y = 0; y < kids.size() && money >= 4.99; y++)
 			{
 				(kids.get(y)).chooseGift(gift, kids.get(y), money);
@@ -52,7 +54,8 @@ public class AssignGifts
 		ArrayList<Gift> potentialGifts = new ArrayList<Gift>();
 		ArrayList<Gift> giftsKidGets = kid.getGifts();
 		Gift giftChosen;
-
+		
+		//adds gift to childs list and removes money from their set amount that they have
 		for(Gift g : gifts)
 		{
 			giftCost = g.getPrice();
@@ -76,7 +79,7 @@ public class AssignGifts
 
 		int size = potentialGifts.size();
 		int digit = (int) (Math.random() * size);
-
+		//checks if they can get the present
 		if(size > 0)
 		{
 			kid.addGift(potentialGifts.get(digit));
