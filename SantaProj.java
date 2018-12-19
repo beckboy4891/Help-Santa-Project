@@ -6,29 +6,40 @@ public class SantaProj
 {
     public static void main(String[] args) throws FileNotFoundException
     {
-		String[] tokens;
-		ArrayList<Kid> Kids = new ArrayList<>();
-		String current = "null";
-		String name = "null";
-		int age = 0;
-		boolean NorN = false;
-		double money = 10000.00;
-		double kidAmt = 0.0;
-		Kid tempKid = new Kid();
-		Gift tempGift = new Gift();
+	String[] tokens;
+	//Array lists used through the program//
+	ArrayList<Kid> Kids = new ArrayList<>();
+	ArrayList<String> info = new ArrayList<>();//Stores temporarily the information from the "kids.txt file"//
+	   
+	//Initial temporary variables decleration//
+	String current = "null";
+	String name = "null";
         String line;
         String string;
+	    
+	boolean NorN = false;
+	    
+	double money = 10000.00;
+	double kidAmt = 0.0;
+	    
+	Kid tempKid = new Kid();
+	Gift tempGift = new Gift();
+
         int increment = 0;
         int amtDays = 10;
-        ArrayList<String> info = new ArrayList<>();
+	int age = 0;
+	   
+        //Sets up kids.txt as the input file//
         Scanner scanner = new Scanner(new File("kids.txt"));
         Scanner reader = new Scanner(System.in);
+	    
+	//inputs information necessary for determining gifts//
         System.out.println("How many days do you have to build?");
         amtDays = reader.nextInt();
         System.out.println("How much money do you have to spend?");
         money = reader.nextDouble();
 
-
+	//Scans in information from kids.txt//
         while (scanner.hasNext())
         {
             //tokenize the last line read from the file
@@ -41,14 +52,20 @@ public class SantaProj
 			 }
         }
         scanner.close();
+	//Adds information from "kids" to a temporary array "info"//
         for(int i = 0; i < info.size(); i ++){
 			current = info.get(i);
-			if(increment == 0){
+			//goes through the "info" array and creates a Kid to add to the "kid" array//
+		
+			if(increment == 0){	//If the array index is a name (determined by the int increment) stores the value in the temporary name//
 				name = current;
 				increment ++;
 			}
-			else if (increment == 1){
+			
+			//If the array index is a boolean "naughty or nice" (determined by the int increment) stores the value in the temporary variable "NorN"//
+			else if (increment == 1){	
 				if(current.equals("nice")){
+					//Changes the string "naughty" or "nice" into a boolean true, or false//
 					NorN = true;
 					increment ++;
 				}
@@ -57,9 +74,12 @@ public class SantaProj
 					increment ++;
 				}
 			}
+		
+		//If the array index is a int (age of the child determined by the int increment) stores the value in the temporary variable age//
 			else if (increment == 2){
 				age = Integer.parseInt(current);
 				increment = 0;
+				//Creates a new temporary kid to add to the "kids" array list//
 				Kid Kiddo = new Kid(name, NorN, age);
 				Kids.add(Kiddo);
 			}
@@ -67,12 +87,11 @@ public class SantaProj
 		for(int x = 0; x < Kids.size(); x ++){
 			Kid child = Kids.get(x);
 		}
-	   	 /*Gift section by Miguel, Emily and Andrew*/
 	    
-	    //reads in the gift file
+	   	 /*Gift section*/
 		Scanner scan = new Scanner(new File("gifts.txt"));
 		ArrayList<Gift> gift = new ArrayList<>();
-		//
+
 		while (scan.hasNext())
 		{
 			String giftName = scan.nextLine();
@@ -182,7 +201,4 @@ public class SantaProj
 
 		return false;	//gift does not match//
 	}
-
-
 }
-
