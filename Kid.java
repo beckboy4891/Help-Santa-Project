@@ -51,7 +51,9 @@ public class Kid
 		else
 			System.out.println("Naughty");
 		System.out.println("Age: " + age);
-		System.out.println("Cost so far: " + costSoFar);
+		System.out.print("Cost for this child : $");
+		System.out.printf("%.2f",costSoFar);
+		System.out.print ("\n");
 	}
 	public ArrayList<Gift> getGifts()
 	{
