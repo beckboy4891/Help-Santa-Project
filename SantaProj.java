@@ -39,6 +39,8 @@ public class SantaProj
         amtDays = reader.nextInt();
         System.out.println("How much money do you have to spend?");
         money = reader.nextDouble();
+	    
+	multiplier = 1 + 100/money;
 
 	//Scans in information from kids.txt//
         while (scanner.hasNext())
@@ -119,26 +121,27 @@ public class SantaProj
 		}
 
 		double moneyPerKid = money / kidAmt;
-		moneyPerKid *= 1 + ;
+		//this measures the range kid prices can fall within - for smaller base amounts, there is a larger range//
+	    	moneyPerKid *= multiplier;
 
-		for(int x = 0; x < Kids.size(); x++)
+		//set the max amount each kid can receive based on the range above//
+	    	for(int x = 0; x < Kids.size(); x++)
 		{
 			(Kids.get(x)).setCostMax(moneyPerKid);
 		}
 
-		//take in kids
-
-		while(hasGift(gift, Kids, money))
+		//as long as it is possible to give a kid a gift, continues giving gifts//
+	    	while(hasGift(gift, Kids, money))
 		{
-			for(int y = 0; y < Kids.size() && money >= 4.99; y++)
+			for(int y = 0; y < Kids.size(); y++)
 			{
+				//chooseGift returns a double for amount the gift costs and updates Kids//
 				money -= chooseGift(gift, Kids.get(y), money);
-
-				tempKid = Kids.get(y);
 			}
 		}
 
-		for(Kid k : Kids)
+		//iterate through Kids, print information on them and their gifts//
+	    	for(Kid k : Kids)
 		{
 			k.printInfo();
 
@@ -148,9 +151,11 @@ public class SantaProj
 			}
 		}
 
-		System.out.println("\n" + money + " dollars remaining.");
+	    //print the amount of money remaining after gifts are assigned//	
+	    System.out.println("\n" + money + " dollars remaining.");
 	}
 	
+	//check whether it is possible to assign a gift//
 	public static boolean hasGift(ArrayList<Gift> gifts, ArrayList<Kid> kids, double moneyLeft)
 	{
 		for(Gift g : gifts)
