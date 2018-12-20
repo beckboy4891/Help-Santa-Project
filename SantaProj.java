@@ -11,7 +11,7 @@ public class SantaProj
 	ArrayList<Kid> Kids = new ArrayList<>();
 	ArrayList<String> info = new ArrayList<>();//Stores temporarily the information from the "kids.txt file"//
 	   
-	//Initial temporary variables decleration//
+	//Initial temporary variables declaration//
 	String current = "null";
 	String name = "null";
         String line;
@@ -22,6 +22,7 @@ public class SantaProj
 	double money = 10000.00;
 	double kidAmt = 0.0;
 	    
+	//set up temporary instances of Kid and Gift to be set in loops//
 	Kid tempKid = new Kid();
 	Gift tempGift = new Gift();
 
@@ -44,6 +45,7 @@ public class SantaProj
         {
             //tokenize the last line read from the file
             line = scanner.nextLine();
+	    //", " between each value//
             tokens = line.split(", ");
 
             //handle the tokens
@@ -91,23 +93,24 @@ public class SantaProj
 	   	 /*Gift section*/
 		Scanner scan = new Scanner(new File("gifts.txt"));
 		ArrayList<Gift> gift = new ArrayList<>();
-	    	//Reads in file and assigns each line to the correct variable type
+	    	//Reads in file and assigns each line to the correct variable type//
 		while (scan.hasNext())
 		{
+			//set values for all aspects of the gift - name, ages, price, and days to build//
 			String giftName = scan.nextLine();
 			int minAge = Integer.parseInt(scan.nextLine());
 			int maxAge = Integer.parseInt(scan.nextLine());
 			double price = Double.parseDouble(scan.nextLine());
 			int days = Integer.parseInt(scan.nextLine());
-
+			
+			//gift is only added to array if it takes less than or equal to the amt. days available to build//
 			if(days <= amtDays)
 			{
 				gift.add(new Gift(giftName,minAge,maxAge,days,price));
 			}
 		}
-
-
-		for(Kid k : Kids)
+	
+	    for(Kid k : Kids)//naughty kids count as a "half" kid, receiving half as much money as nice kids//
 		{
 			if(k.isNice())
 				kidAmt++;
@@ -116,7 +119,7 @@ public class SantaProj
 		}
 
 		double moneyPerKid = money / kidAmt;
-		moneyPerKid *= 1.2;
+		moneyPerKid *= 1 + ;
 
 		for(int x = 0; x < Kids.size(); x++)
 		{
@@ -125,7 +128,7 @@ public class SantaProj
 
 		//take in kids
 
-		while(money >= 4.99)
+		while(hasGift(gift, Kids, money))
 		{
 			for(int y = 0; y < Kids.size() && money >= 4.99; y++)
 			{
@@ -147,6 +150,23 @@ public class SantaProj
 
 		System.out.println("\n" + money + " dollars remaining.");
 	}
+	
+	public static boolean hasGift(ArrayList<Gift> gifts, ArrayList<Kid> kids, double moneyLeft)
+	{
+		for(Gift g : gifts)
+		{
+			for(Kid k : kids)
+			{
+				if(giftMatches(k, g, moneyLeft))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+	
 	public static double chooseGift(ArrayList<Gift> gifts, Kid kid, double moneyLeft)
 	{
 		boolean matches = false;
@@ -158,20 +178,7 @@ public class SantaProj
 
 		for(Gift g : gifts)
 		{
-			giftCost = g.getPrice();
-
-			matches = giftMatches(kid, g);
-
-			if(giftCost > moneyLeft)
-				matches = false;
-
-			for(Gift gi : giftsKidGets)
-			{
-				if(g.equals(gi))
-					matches = false;
-			}
-
-			if(matches && ((kid.getCost() + giftCost) <= moneyPerKid))
+			if(giftMatches(kid, g, moneyLeft))
 			{
 				potentialGifts.add(g);
 			}
@@ -189,16 +196,37 @@ public class SantaProj
 
 		return 0.0;
 	}
-	public static boolean giftMatches(Kid k, Gift g)	//check if the gift and the kid are age compatible//
+	
+	public static boolean giftMatches(Kid k, Gift g, double m)	//check if the gift and the kid are age compatible//
 	{
 		int kidAge = k.getAge();
 		int giftMin = g.getMin();
 		int giftMax = g.getMax();
+		ArrayList<Gift> giftsKidGets = k.getGifts();
+		boolean matches = true;
+		double giftCost = g.getPrice();
+		double moneyPerKid = k.getCostMax();
 
-		if(kidAge >= giftMin && kidAge <= giftMax)	//kid age must be within age range of gift//
-			return true;	//gift matches//
+		giftCost = g.getPrice();
+
+		if(giftCost > m)
+			matches = false;
+
+		for(Gift gi : giftsKidGets)
+		{
+			if(g.equals(gi))
+				matches = false;
+		}
+
+		if(!((k.getCost() + giftCost) <= moneyPerKid))
+		{
+			matches = false;
+		}
+
+		if(kidAge < giftMin || kidAge > giftMax)	//kid age must be within age range of gift//
+			matches = false;
 
 
-		return false;	//gift does not match//
+		return matches;
 	}
 }
