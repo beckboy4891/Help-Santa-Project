@@ -4,13 +4,14 @@ import java.io.*;
 
 public class Kid
 {
+	//initialize variables//
 	String name;
 	boolean nice;
 	int age;
 	double costSoFar = 0.0, costMax;
 	ArrayList<Gift> gifts = new ArrayList<>();
 
-	public Kid()
+	public Kid()	//blank instantiation//
 	{
 		name = "";
 		nice = true;
@@ -23,8 +24,8 @@ public class Kid
 		nice = n;
 		age = a;
 	}
-	public boolean isNice()
-	{						//return true for nice, false for naughty//
+	public boolean isNice()		//return true for nice, false for naughty//
+	{						
 		return nice;
 	}
 	public int getAge()	//return kid's age//
@@ -35,15 +36,15 @@ public class Kid
 	{
 		return name;
 	}
-	public void addCost(double d)
+	public void addCost(double d)	//increases the total cost attributed to the kid thus far//
 	{
 		costSoFar += d;
 	}
-	public double getCost()
+	public double getCost()	//return cost spent on the kid so far//
 	{
 		return costSoFar;
 	}
-	public void printInfo()
+	public void printInfo()	//print info about the kid//
 	{
 		System.out.println("Kid name: " + name);
 		if(nice)
@@ -55,17 +56,17 @@ public class Kid
 		System.out.printf("%.2f",costSoFar);
 		System.out.print ("\n");
 	}
-	public ArrayList<Gift> getGifts()
+	public ArrayList<Gift> getGifts()	//return an array of gifts kid has received//
 	{
 		return gifts;
 	}
-	public void addGift(Gift g)
+	public void addGift(Gift g)	//adds a gift to the list of gifts the kid has received, increase cost spent on them//
 	{
 		gifts.add(g);
 
 		addCost(g.getPrice());
 	}
-	public void setCostMax(double c)
+	public void setCostMax(double c)	//set max amount to be spent on a kid, nice kids get twice as much as naughty do//
 	{
 		if(nice)
 			costMax = c;
@@ -75,7 +76,7 @@ public class Kid
 
 		costMax *= 1.1;
 	}
-	public double getCostMax()
+	public double getCostMax()	//return max amount to be spent on the kid
 	{
 		return costMax;
 	}
