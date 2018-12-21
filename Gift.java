@@ -1,3 +1,5 @@
+//class by Emily Bixler//
+
 //initialize class, representing each potential gift
 public class Gift
 {
