@@ -158,6 +158,7 @@ public class SantaProj
 	//check whether it is possible to assign a gift//
 	public static boolean hasGift(ArrayList<Gift> gifts, ArrayList<Kid> kids, double moneyLeft)
 	{
+		//iterate through all gifts and all kids to check if match//
 		for(Gift g : gifts)
 		{
 			for(Kid k : kids)
@@ -168,19 +169,18 @@ public class SantaProj
 				}
 			}
 		}
-
+		
+		//return false if there are no possible gifts left to give//
 		return false;
 	}
 	
+	//choose a gift for a kid based on arrayList of gifts and a single kid, along with remaining money//
 	public static double chooseGift(ArrayList<Gift> gifts, Kid kid, double moneyLeft)
 	{
-		boolean matches = false;
-		double giftCost = 0.0;
-		double moneyPerKid = kid.getCostMax();
-		ArrayList<Gift> potentialGifts = new ArrayList<>();
-		ArrayList<Gift> giftsKidGets = kid.getGifts();
-		Gift giftChosen;
+		ArrayList<Gift> potentialGifts = new ArrayList<>();//gifts the kid can receive//
+		ArrayList<Gift> giftsKidGets = kid.getGifts();//gifts the kid has already received//
 
+		//iterate through all gifts to check if they are compatible with the kid//
 		for(Gift g : gifts)
 		{
 			if(giftMatches(kid, g, moneyLeft))
@@ -189,49 +189,54 @@ public class SantaProj
 			}
 		}
 
+		//size is the length of the list, determines range of the random number//
 		int size = potentialGifts.size();
 		int digit = (int) (Math.random() * size);
 
 		if(size > 0)
 		{
+			//add randomly selected gift//
 			kid.addGift(potentialGifts.get(digit));
-
+			
+			//return price//
 			return potentialGifts.get(digit).getPrice();
 		}
 
-		return 0.0;
+		return 0.0;//return a cost of 0 if a gift cannot be found for this kid//
 	}
 	
 	public static boolean giftMatches(Kid k, Gift g, double m)	//check if the gift and the kid are age compatible//
 	{
+		//initialize the kid's stats so are easily accessible//
 		int kidAge = k.getAge();
 		int giftMin = g.getMin();
 		int giftMax = g.getMax();
 		ArrayList<Gift> giftsKidGets = k.getGifts();
-		boolean matches = true;
+		//initialize the gift's stats so are easily accessible//
 		double giftCost = g.getPrice();
 		double moneyPerKid = k.getCostMax();
-
-		giftCost = g.getPrice();
-
+		
+		//m is money remaining, gift is incompatible if it costs more than is remaining//
 		if(giftCost > m)
-			matches = false;
+			return false;
 
+		//iterate through list of kid's gifts, kid does not match if they already have the gift//
 		for(Gift gi : giftsKidGets)
 		{
 			if(g.equals(gi))
-				matches = false;
+				return false;
 		}
 
+		//check if the kid's total amount spent on them plus the cost of the gift is more than their max amount//
 		if(!((k.getCost() + giftCost) <= moneyPerKid))
 		{
-			matches = false;
+			return false;
 		}
 
 		if(kidAge < giftMin || kidAge > giftMax)	//kid age must be within age range of gift//
-			matches = false;
+			return false;
 
-
-		return matches;
+		//if passed all previous tests, the kid matches//
+		return true;
 	}
 }
