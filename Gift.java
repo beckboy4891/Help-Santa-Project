@@ -1,12 +1,13 @@
 //initialize class, representing each potential gift
 public class Gift
 {
+	//set all to default values//
 	String name = "";
 	int minAge = 0, maxAge = 0;
 	int timeToMake = 0;
 	double price = 0.0;
 
-	public Gift()
+	public Gift()	//blank instantiation//
 	{
 		name = "";
 	}
@@ -45,7 +46,7 @@ public class Gift
 		return price;
 	}
 
-	public void printInfo()
+	public void printInfo()//print the stats of the gift//
 	{
 		System.out.println(name + "\n" + minAge + "\n" + maxAge + "\n" + timeToMake + "\n" + price);
 	}
